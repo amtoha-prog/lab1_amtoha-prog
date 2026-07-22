@@ -83,7 +83,6 @@ def evaluate_grades(data):
         sys.exit(1)
 
     # TODO: c) Calculate the Final Grade and GPA
-    # 
     total_grade = 0
     for assignment in data:
         weight_score = assignment['score'] * assignment['weight'] / 100
@@ -93,9 +92,57 @@ def evaluate_grades(data):
     gpa = (total_grade / 100) * 5.0
 
     # TODO: d) Determine Pass/Fail status (>= 50% in BOTH categories)
+    formative_total = 0
+    for assignment in formative_list:
+        formative_total += assignment['score'] * assignment['weight'] / 100
+
+    summative_total = 0
+    for assignment in summative_list:
+        summative_total += assignment['score'] * assignment['weight'] / 100
+    # Category's own total weight for formative and summative
+    formative_percent = (formative_total / formative_weight) * 100
+    summative_percent = (summative_total / summative_weight) * 100
+
+    # Pass only if both categories are >= 50% and if not both fail
+    if formative_percent >= 50 and summative_percent >= 50:
+        status = "PASSED"
+    else:
+        status = "FAILED"
     # TODO: e) Check for failed formative assignments (< 50%)
     #          and determine which one(s) have the highest weight for resubmission.
+    failed_formatives = []
+    for assignment in formative_list:
+        if assignment['score'] < 50:
+            failed_formatives.append(assignment)
+
+    resubmission_list = []
+    if len(failed_formatives) > 0:
+        # Finding the highest wieght among the failures
+        highest_weight = 0
+        for assignment in failed_formatives:
+            if assignment['weight'] > highest_weight:
+                highest_weight = assignment['weight']
+        # If two assignments have top weight bothe are added
+
+        for assignment in failed_formatives:
+            if assignment['weight'] == highest_weight:
+                resubmission_list.append(assignment['assignment'])
+
     # TODO: f) Print the final decision (PASSED / FAILED) and resubmission options
+    #Showing all the key numbers of how students performed.
+    print(f"Total Grade: {total_grade:.2f}%")
+    print(f"GPA: {gpa:.2f}")
+    print(f"Formative Score: {formative_percent:.2f}%")
+    print(f"Summative Score: {summative_percent:.2f}%")
+    print(f"Final Status: {status}")
+
+    # If any assignments made it into the resubmission list, it should be listed.
+    if len(resubmission_list) > 0:
+        print("Resubmission needed for:")
+        for name in resubmission_list:
+            print(f" - {name}")
+    else:
+        print("No resubmission required.")
     
     pass
 
