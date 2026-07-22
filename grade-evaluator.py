@@ -47,7 +47,51 @@ def evaluate_grades(data):
 
 
     # TODO: b) Validate total weights (Total=100, Summative=40, Formative=60)
+    # Spliting first the category to formative and summative 
+    formative_list = []
+    summative_list = []
+
+    for assignment in data:
+        if assignment['group'] == 'Formative':
+            formative_list.append(assignment)
+        elif assignment['group'] == 'Summative':
+            summative_list.append(assignment)
+# Adding weight for total weight, then each category on it own.
+    total_weight = 0
+    for assignment in data:
+        total_weight += assignment['weight']
+
+    formative_weight = 0
+    for assignment in formative_list:
+        formative_weight += assignment['weight']
+
+    summative_weight = 0
+    for assignment in summative_list:
+        summative_weight += assignment['weight']
+
+    # If grades excced the write grades print an error
+    if total_weight != 100:
+        print(f"Error: The total weight is {total_weight}, it must be exactly 100.")
+        sys.exit(1)
+
+    if formative_weight != 60:
+        print(f"Error: The formative weight is {formative_weight}, it must be exactly 60.")
+        sys.exit(1)
+
+    if summative_weight != 40:
+        print(f"Error: The summative weight is {summative_weight}, it must be exactly 40.")
+        sys.exit(1)
+
     # TODO: c) Calculate the Final Grade and GPA
+    # 
+    total_grade = 0
+    for assignment in data:
+        weight_score = assignment['score'] * assignment['weight'] / 100
+        total_grade += weight_score
+
+    # converting the total grrade out of 100 into GPA out of 5.0
+    gpa = (total_grade / 100) * 5.0
+
     # TODO: d) Determine Pass/Fail status (>= 50% in BOTH categories)
     # TODO: e) Check for failed formative assignments (< 50%)
     #          and determine which one(s) have the highest weight for resubmission.
