@@ -70,15 +70,15 @@ def evaluate_grades(data):
         summative_weight += assignment['weight']
 
     # If grades excced the write grades print an error
-    if total_weight != 100:
+    if round(total_weight, 2) != 100:
         print(f"Error: The total weight is {total_weight}, it must be exactly 100.")
         sys.exit(1)
 
-    if formative_weight != 60:
+    if round(formative_weight, 2) != 60:
         print(f"Error: The formative weight is {formative_weight}, it must be exactly 60.")
         sys.exit(1)
 
-    if summative_weight != 40:
+    if round(summative_weight, 2) != 40:
         print(f"Error: The summative weight is {summative_weight}, it must be exactly 40.")
         sys.exit(1)
 
