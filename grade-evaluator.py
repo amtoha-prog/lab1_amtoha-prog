@@ -52,9 +52,9 @@ def evaluate_grades(data):
     summative_list = []
 
     for assignment in data:
-        if assignment['group'] == 'Formative':
+        if assignment['group'].strip().lower() == 'formative':
             formative_list.append(assignment)
-        elif assignment['group'] == 'Summative':
+        elif assignment['group'].strip().lower() == 'summative':
             summative_list.append(assignment)
 # Adding weight for total weight, then each category on it own.
     total_weight = 0
