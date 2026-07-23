@@ -1,6 +1,6 @@
-# Lab 1: Grade Evaluator & Archiver
+https://github.com/amtoha-prog/lab1_amtoha-prog# Lab 1: Grade Evaluator & Archiver
 
-This project has two parts: a Python script that reads a student's grades from a CSV file and works out their final GPA and pass orfail status, and a Bash script that archives that CSV and resets it for the next batch.
+This project has two parts: a Python script that reads a student's grades from a CSV file and works out their final GPA and pass or fail status, and a Bash script that archives that CSV and resets it for the next batch.
 
 ## The files include:
 - "grade-evaluator.py" – this python script reads grades.csv, validates it, calculates GPA and pass/fail, and shows which assignments need resubmission.
